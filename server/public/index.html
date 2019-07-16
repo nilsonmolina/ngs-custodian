@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form class="form">
+        <input type="file" name="pricelist" class="file" accept="application/zip" required>
+        <button type="submit" class="submit">Upload</button>
+        <span class="progress"></span>
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+    <script>
+        // UI ELEMENTS
+        const ui = {
+            form: document.querySelector('.form'),
+            file: document.querySelector('.file'),
+            button: document.querySelector('.submit'),
+            progress: document.querySelector('.progress'),
+        };
+        const state = {
+            filename: null,
+        }
+
+        // EVENT LISTENERS
+        ui.button.addEventListener('click', uploadFile);
+
+        // EVENT FUNCTIONS
+        function uploadFile(e) {
+            // VALIDATE USER INPUT
+            if (!ui.form.checkValidity()) return;
+            e.preventDefault();
+            // ADD DATA TO FORMDATA OBJECT
+            const fd = new FormData();
+            fd.append('pricelist', ui.file.files[0]);
+            // CONFIGURE AXIOS POST
+            const config = {
+                headers: { 'Content-Type': 'multipart/form-data' },
+                onUploadProgress: (e) => ui.progress.innerHTML = `${Math.round((e.loaded * 100) / e.total)} %`,
+            };
+            // POST FILE TO API
+            axios.post('http://127.0.0.1:3000/api/pricelists/', fd, config)
+                .then((res) => { state.filename = res.data; })
+                .catch((err) => { console.log(`response: ${err}`); });
+        };
+
+    </script>
+</body>
+</html>
