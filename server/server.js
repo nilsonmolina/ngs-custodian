@@ -6,7 +6,7 @@ const pricelists = require('./routes/pricelists');
 
 // SETUP
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 6464;
 
 // LOAD MIDDLEWARE
 app.use(express.json());
