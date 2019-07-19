@@ -8,21 +8,25 @@
 body {
   background: #D1D7DD;
   height: 100vh;
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 1.1rem;
 }
 
+/* --------------------
+    FILE UPLOADER
+---------------------*/
 .file-uploader {
   min-height: 500px;
-  min-width: 550px;
+  min-width: 800px;
   position: absolute;
   top: 10vh;
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   background: #F5F8FB;
-  border-radius: 10px;
-  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 2px 15px rgba(0, 0, 0, 0.25);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -33,51 +37,50 @@ body {
 }
 
 .file-uploader .header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  background: #fff;
-  border-radius: 10px 10px 0 0;
+  height: 65px;
+  line-height: 65px;
+  text-align: center;
+  vertical-align: middle;
+  color: #fefefe;
+  background: #333333;
   -webkit-box-shadow: 0 1px rgba(0, 0, 0, 0.1);
           box-shadow: 0 1px rgba(0, 0, 0, 0.1);
-}
-
-.file-uploader .header .nav {
-  bottom: 0;
-  padding: 50px 40px 5px 40px;
-  text-decoration: none;
-  color: #777;
-  font-size: .9rem;
-}
-
-.file-uploader .header .nav:hover {
-  cursor: pointer;
-}
-
-.file-uploader .header .nav.active {
-  border-bottom: 2px solid #007bfc;
-  color: rgba(0, 123, 252, 0.7);
 }
 
 .file-uploader .content {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  /* --------------------
+            UPLOADER
+        ---------------------*/
+  /* --------------------
+            SAVED FILES
+        ---------------------*/
+}
+
+.file-uploader .content > * {
+  margin: 30px;
 }
 
 .file-uploader .content .upload {
-  display: none;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 0px;
+          flex: 1 0 0;
+  margin-right: 0;
   position: relative;
+  border: 1px solid #ddd;
 }
 
 .file-uploader .content .upload svg {
-  height: 85px;
-  width: 85px;
-  fill: rgba(127, 127, 127, 0.25);
+  height: 150px;
+  width: 150px;
+  fill: #ddd;
   position: absolute;
-  top: 25%;
+  top: 15%;
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
@@ -92,32 +95,191 @@ body {
 }
 
 .file-uploader .content .upload .file-container .text {
-  color: rgba(127, 127, 127, 0.25);
-  font-size: 1.1rem;
+  color: #bbb;
+  width: 60%;
+  text-align: center;
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
 }
 
-.file-uploader .content .upload .file-container .file {
-  cursor: inherit;
+.file-uploader .content .upload .file-container .button {
+  width: 60%;
+  padding: 13px 20px;
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  z-index: 2;
+  color: #fff;
+  text-align: center;
+  font-size: .9rem;
+  background: #E74889;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.file-uploader .content .upload .file-container .button:hover {
+  cursor: pointer;
+}
+
+.file-uploader .content .upload .file-container .button.prevent-drop {
+  z-index: -1;
+}
+
+.file-uploader .content .upload .file-container #upload-file {
   display: block;
   min-height: 400px;
   min-width: 100%;
+  position: relative;
   opacity: 0;
+  z-index: 1;
 }
 
 .file-uploader .content .saved-files {
-  display: none;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 0px;
+          flex: 1 0 0;
 }
 
-.file-uploader.show-upload .content .upload {
-  display: block;
+.file-uploader .content .saved-files h4 {
+  font-weight: 400;
+  font-size: .9rem;
+  margin-bottom: 10px;
+  text-decoration: underline;
 }
 
-.file-uploader.show-saved-files .content .saved-files {
+.file-uploader .content .saved-files .file {
+  margin-bottom: 15px;
+  padding: 13px 15px;
+  background: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: .8rem;
+  -webkit-box-shadow: 3px 4px 3px rgba(0, 0, 0, 0.1);
+          box-shadow: 3px 4px 3px rgba(0, 0, 0, 0.1);
+  -webkit-transition: -webkit-box-shadow .2s ease-in, -webkit-transform .2s ease-in;
+  transition: -webkit-box-shadow .2s ease-in, -webkit-transform .2s ease-in;
+  transition: box-shadow .2s ease-in, transform .2s ease-in;
+  transition: box-shadow .2s ease-in, transform .2s ease-in, -webkit-box-shadow .2s ease-in, -webkit-transform .2s ease-in;
+}
+
+.file-uploader .content .saved-files .file:hover {
+  -webkit-box-shadow: 3px 5px 4px rgba(0, 0, 0, 0.15);
+          box-shadow: 3px 5px 4px rgba(0, 0, 0, 0.15);
+}
+
+.file-uploader .content .saved-files .file > * {
+  display: inline-block;
+}
+
+.file-uploader .content .saved-files .file .icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background: #E74889;
+  position: relative;
+}
+
+.file-uploader .content .saved-files .file .icon::before {
+  content: "";
   display: block;
+  height: 13px;
+  width: 13px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border: 2px solid white;
+}
+
+.file-uploader .content .saved-files .file .details {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  color: #777;
+}
+
+.file-uploader .content .saved-files .file .details .size {
+  font-size: .6rem;
+}
+
+.file-uploader .content .saved-files .file .download {
+  position: relative;
+}
+
+.file-uploader .content .saved-files .file .download a {
+  margin-right: 35px;
+  font-size: .7rem;
+  color: blue;
+  text-transform: uppercase;
+}
+
+.file-uploader .content .saved-files .file .download::before {
+  content: "";
+  display: block;
+  height: 15px;
+  width: 15px;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border: 1px solid #bbb;
+  cursor: pointer;
+}
+
+/* --------------------
+    ALERTS
+---------------------*/
+.alerts {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  z-index: 100;
+}
+
+.alerts .notification {
+  width: 300px;
+  color: #fff;
+  font-size: 14px;
+  padding: 20px 30px;
+  opacity: 0;
+  visibility: hidden;
+  border-radius: 4px;
+  -webkit-transform: translateY(35%);
+          transform: translateY(35%);
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+}
+
+.alerts .notification:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.alerts .notification.is-danger, .alerts .notification.is-success {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+.alerts .notification.is-danger {
+  background-color: #FF3860;
+}
+
+.alerts .notification.is-success {
+  background-color: #23D160;
 }
 /*# sourceMappingURL=style.css.map */

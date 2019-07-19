@@ -9,16 +9,19 @@
     <!-- STYLES -->
     <link rel="stylesheet" href="style.css">
 
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+
     <!-- SCRIPTS -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
     <script defer src="script.js"></script>
     <!-- "defer" allows scripts to download in the background asynchronously, but will only run scripts after html parsing is complete. -->
 </head>
 <body>
-    <div class="file-uploader show-upload"> 
+    <div class="alerts"></div>
+    <div class="file-uploader"> 
         <div class="header">
-            <div class="nav active">Upload Raw</div>
-            <div class="nav">Cleaned Files</div>
+            Caterpillar Pricelist
         </div>
 
         <div class="content">
@@ -29,17 +32,42 @@
                 </svg>
 
 
-                <label for="" class="file-container">
+                <div class="file-container">
                     <div class="text">
                         Drag & Drop to Upload
                     </div>
+                    <label for="upload-file" class="button">
+                        Browse Files
+                    </label>
                     
-                    <input type="file" class="file" name="pricelist" accept=".zip">
-                </label>
+                    <input id="upload-file" type="file" title="Drag file here">
+                </div>
                 <span class="progress"></span>
             </div>
 
-            <div class="saved-files"></div>
+            <div class="saved-files">
+                <h4>Saved Pricelists</h4>
+                <div class="file">
+                    <div class="icon"></div>
+                    <div class="details">
+                        <div class="title">DataSource.txt</div>
+                        <div class="size">22MB</div>
+                    </div>
+                    <div class="download">
+                            <a href="#">raw</a>
+                    </div>
+                </div>
+                <div class="file">
+                    <div class="icon"></div>
+                    <div class="details">
+                        <div class="title">Source.txt</div>
+                        <div class="size">21MB</div>
+                    </div>
+                    <div class="download">
+                        <a href="#">raw</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

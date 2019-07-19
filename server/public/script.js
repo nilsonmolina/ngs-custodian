@@ -1,25 +1,65 @@
+/* eslint-env browser */
 // -------------------
 // UI ELEMENTS
 // -------------------
 const ui = {
   file: {
-    input: document.querySelector('input[name="pricelist"]'),
+    button: document.querySelector('.button'),
+    input: document.querySelector('input[type="file"]'),
     isValid: function isValid() {
       const file = this.input.files[0];
+      const password = 'Testing123';
       if (file.name.indexOf('.txt') === -1) {
-        console.log('Must be a txt file.');
+        ui.alert.error('Must be a txt file.');
+        this.input.value = null;
         return false;
       }
       if (file.size > 150 * 1000 * 1000) {
-        console.log('File cannot be larger than 150MB.');
+        ui.alert.error('File cannot be larger than 150MB.');
+        this.input.value = null;
         return false;
       }
       if (file.size < 80 * 1000 * 1000) {
-        console.log('File too small, please confirm file.');
+        ui.alert.error('File too small, please confirm file.');
+        this.input.value = null;
+        return false;
+      }
+      if (prompt('Enter the password.') !== password) {
+        ui.alert.error('You are not authorized to upload');
+        this.input.value = null;
         return false;
       }
 
       return true;
+    },
+  },
+  alert: {
+    element: document.querySelector('.alerts'),
+    error: function error(msg, timeout = 10000) {
+      if (this.isDuplicate(msg)) return;
+      const n = document.createElement('div');
+      n.setAttribute('class', 'notification');
+      n.innerHTML = `<span class="msg">${msg}</span>`;
+      this.element.appendChild(n);
+      setTimeout(() => n.classList.add('is-danger'), 50);
+      setTimeout(() => n.classList.remove('is-danger'), timeout);
+      setTimeout(() => n.remove(), timeout + 400);
+    },
+    success: function error(msg, timeout = 10000) {
+      if (this.isDuplicate(msg)) return;
+      const n = document.createElement('div');
+      n.setAttribute('class', 'notification');
+      n.innerHTML = `<span class="msg">${msg}</span>`;
+      this.element.appendChild(n);
+      setTimeout(() => n.classList.add('is-success'), 50);
+      setTimeout(() => n.classList.remove('is-success'), timeout);
+      setTimeout(() => n.remove(), timeout + 400);
+    },
+    isDuplicate: function isDuplicate(msg) {
+      for (const { childNodes } of this.element.childNodes) {
+        if (childNodes[0].innerHTML === msg) return true;
+      }
+      return false;
     },
   },
 };
@@ -28,10 +68,15 @@ const ui = {
 // EVENT LISTENERS
 // -------------------
 ui.file.input.addEventListener('change', tryUpload);
+window.addEventListener('dragover', preventDragDrop);
+window.addEventListener('drop', preventDragDrop);
 
 // -------------------
 // EVENT LISTENER FUNCTIONS
 // -------------------
+function preventDragDrop(e) {
+  if (e.target !== ui.file.input) e.preventDefault();
+}
 function tryUpload() {
   if (!ui.file.isValid()) return;
   ui.file.input.disabled = true;
@@ -57,11 +102,11 @@ function tryUpload() {
   const api = `${baseURL}api/pricelists/`;
   axios.post(api, fd, config)
     .then((res) => {
-      console.log(res.data);
+      ui.alert.success(res.data);
       window.open(baseURL + res.data.path);
     })
     .catch((err) => {
-      console.log(`response: ${err}`);
+      ui.alert.error(err);
     })
     .finally(() => {
       console.log('done!');

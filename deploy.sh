@@ -5,6 +5,7 @@ set -e # Any subsequent(*) commands which fail will cause the shell script to ex
 [ -z "$HOST_SERVER_IP" ] && echo "Need to set HOST_SERVER_IP" && exit 1;
 [ -z "$HOST_SERVER_USER" ] && echo "Need to set HOST_SERVER_USER" && exit 1;
 [ -z "$AWS_KEY_PATH" ] && echo "Need to set HOST_SERVER_USER" && exit 1;
+[ -z "$API_PASSWORD" ] && echo "Need to set API_PASSWORD" && exit 1;
 
 cd ./server
 tar czf ngs-custodian.tar.gz server.js package.json package-lock.json ecosystem.config.js public routes private
