@@ -1,6 +1,9 @@
 $base-color: #E74889;
 $base-color-dark: #c6538c;
 
+$responsive-medium: 850px;
+$responsive-small: 600px;
+
 *, *::before, *::after {
     box-sizing: border-box;
     padding: 0;
@@ -25,15 +28,24 @@ body {
 ---------------------*/
 .file-uploader {
     min-height: 500px;
-    min-width: 800px;
+    width: 800px;
     position: absolute;
-    top: 10vh;
+    top: 5vw;
     left: 50%;
     transform: translateX(-50%);
     background: #F5F8FB;
     box-shadow: 0 2px 15px rgba(0, 0, 0, .25);
     display: flex;
     flex-direction: column;
+
+    @media (max-width: $responsive-medium) {
+        width: 100vw;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        transform: translateX(0);
+    }
 
     .header {
         height: 65px;
@@ -48,6 +60,11 @@ body {
     .content {
         flex-grow: 1;
         display: flex;
+        flex-direction: row;
+
+        @media (max-width: $responsive-medium) {
+            display: block;
+        }
 
         /* --------------------
             UPLOADER
@@ -61,6 +78,10 @@ body {
             position: relative;
             border: 1px solid #ddd;
 
+            @media (max-width: $responsive-medium) {
+                margin: 15px;
+            }
+
             svg {
                 height: 150px;
                 width: 150px;
@@ -71,8 +92,10 @@ body {
                 transform: translateX(-50%);
                 // filter: drop-shadow(3px 3px 1px rgba(0, 0, 0, .2));
 
-                path {
-                    stroke-width: 20px;
+                @media (max-width: $responsive-medium) {
+                    height: 100px;
+                    width: 100px;
+                    top: 5%;
                 }
             }
 
@@ -90,6 +113,7 @@ body {
                 }
                 .button {
                     width: 60%;
+                    max-width: 300px;
                     padding: 13px 20px;
                     position: absolute;
                     top: 65%;
@@ -99,8 +123,12 @@ body {
                     color: #fff;
                     text-align: center;
                     font-size: .9rem;
-                    background: #E74889;
+                    background: $base-color;
                     user-select: none;
+
+                    @media (max-width: $responsive-medium) {
+                        top: 70%;
+                    }
 
                     &:hover {
                         cursor: pointer;
@@ -117,6 +145,10 @@ body {
                     position: relative;
                     opacity: 0;
                     z-index: 1;
+
+                    @media (max-width: $responsive-medium) {
+                        min-height: 200px;
+                    }
                 }
             }
         }
@@ -168,7 +200,7 @@ body {
                     height: 30px;
                     border-radius: 50%;
                     margin-right: 10px;
-                    background: #E74889;
+                    background: $base-color;
                     position: relative;
 
                     &::before {

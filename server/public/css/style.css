@@ -25,9 +25,9 @@ body {
 ---------------------*/
 .file-uploader {
   min-height: 500px;
-  min-width: 800px;
+  width: 800px;
   position: absolute;
-  top: 10vh;
+  top: 5vw;
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
@@ -41,6 +41,18 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+@media (max-width: 850px) {
+  .file-uploader {
+    width: 100vw;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
 }
 
 .file-uploader .header {
@@ -61,12 +73,22 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   /* --------------------
             UPLOADER
         ---------------------*/
   /* --------------------
             SAVED FILES
         ---------------------*/
+}
+
+@media (max-width: 850px) {
+  .file-uploader .content {
+    display: block;
+  }
 }
 
 .file-uploader .content > * {
@@ -82,6 +104,12 @@ body {
   border: 1px solid #ddd;
 }
 
+@media (max-width: 850px) {
+  .file-uploader .content .upload {
+    margin: 15px;
+  }
+}
+
 .file-uploader .content .upload svg {
   height: 150px;
   width: 150px;
@@ -93,8 +121,12 @@ body {
           transform: translateX(-50%);
 }
 
-.file-uploader .content .upload svg path {
-  stroke-width: 20px;
+@media (max-width: 850px) {
+  .file-uploader .content .upload svg {
+    height: 100px;
+    width: 100px;
+    top: 5%;
+  }
 }
 
 .file-uploader .content .upload .file-container {
@@ -114,6 +146,7 @@ body {
 
 .file-uploader .content .upload .file-container .button {
   width: 60%;
+  max-width: 300px;
   padding: 13px 20px;
   position: absolute;
   top: 65%;
@@ -131,6 +164,12 @@ body {
           user-select: none;
 }
 
+@media (max-width: 850px) {
+  .file-uploader .content .upload .file-container .button {
+    top: 70%;
+  }
+}
+
 .file-uploader .content .upload .file-container .button:hover {
   cursor: pointer;
 }
@@ -146,6 +185,12 @@ body {
   position: relative;
   opacity: 0;
   z-index: 1;
+}
+
+@media (max-width: 850px) {
+  .file-uploader .content .upload .file-container #upload-file {
+    min-height: 200px;
+  }
 }
 
 .file-uploader .content .saved-files {

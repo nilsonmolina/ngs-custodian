@@ -1,4 +1,5 @@
 /* eslint-env browser */
+const { axios } = window;
 // -------------------
 // UI ELEMENTS
 // -------------------
@@ -142,7 +143,6 @@ function postFile(file) {
   // POST FILE TO API
   const baseURL = 'http://127.0.0.1:6464/';
   const api = `${baseURL}api/pricelists/`;
-  // eslint-disable-next-line no-undef
   axios.post(api, fd, config)
     .then((res) => {
       console.log(res.data);
