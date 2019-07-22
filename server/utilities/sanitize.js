@@ -8,6 +8,8 @@ function sanitize(i, o) {
     const rl = readline.createInterface({
       input: rstream,
       crlfDelay: Infinity,
+      historySize: 0,
+      terminal: false,
     });
 
     const startTime = new Date();
@@ -39,9 +41,6 @@ function sanitize(i, o) {
     });
 
     rl.on('close', () => {
-      console.log(`Raw Data has been cleaned!
-      - Elapsed Time:    ${new Date() - startTime}ms
-      - Number of Parts: ${parts}`);
       resolve({
         path: o,
         elapsed: new Date() - startTime,

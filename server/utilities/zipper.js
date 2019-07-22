@@ -3,14 +3,14 @@ const zlib = require('zlib');
 
 function zip(i) {
   return new Promise((resolve, reject) => {
-    const out = `${i}.zip`;
+    const o = `${i}.gz`;
     const rStream = fs.createReadStream(i);
-    const wStream = fs.createWriteStream(out);
+    const wStream = fs.createWriteStream(o);
     const gzip = zlib.createGzip();
 
     rStream.pipe(gzip).pipe(wStream).on('finish', (err) => {
-      if (err) return reject(err);
-      return resolve(out);
+      if (err) reject(err);
+      resolve(o);
     });
   });
 }
@@ -22,8 +22,8 @@ function unzip(i, o) {
     const gunzip = zlib.createGunzip();
 
     rStream.pipe(gunzip).pipe(wStream).on('finish', (err) => {
-      if (err) return reject(err);
-      return resolve();
+      if (err) reject(err);
+      resolve();
     });
   });
 }

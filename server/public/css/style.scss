@@ -15,6 +15,11 @@ body {
     font-size: 1.1rem;
 }
 
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
 /* --------------------
     FILE UPLOADER
 ---------------------*/
@@ -121,10 +126,12 @@ body {
         ---------------------*/
         .saved-files {
             flex: 1 0 0;
-            // margin-left: 0;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 5px;
 
             h4 {
-                font-weight: 400;
+                font-weight: 300;
                 font-size: .9rem;
                 margin-bottom: 10px;
                 text-decoration: underline;
@@ -138,10 +145,16 @@ body {
                 align-items: center;
                 font-size: .8rem;
                 box-shadow: 3px 4px 3px rgba(0,0,0,.1);
+                opacity: 1;
                 transition: 
                     box-shadow .2s ease-in,
-                    transform .2s ease-in;
+                    transform .4s ease-in,
+                    opacity .4s ease-in;
 
+                &.hidden {
+                    transform: translateY(10px);
+                    opacity: 0;
+                }
                 &:hover {
                     // transform: translateY(-1px);
                     box-shadow: 3px 5px 4px rgba(0,0,0,.15);                    
