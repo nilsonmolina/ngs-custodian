@@ -5,8 +5,8 @@ const fs = require('fs');
 const multer = require('multer');
 const express = require('express');
 
-const { sanitize } = require('../utilities/sanitize');
-const zipper = require('../utilities/zipper');
+const { sanitize } = require('../utils/sanitize');
+const zipper = require('../utils/zipper');
 
 // SETUP
 const router = express.Router();

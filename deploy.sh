@@ -12,7 +12,7 @@ sed -i -e 's/http:\/\/127.0.0.1:6464\//https:\/\/ngsprices.ml\//g' ./server/publ
 
 # COMPRESS FILE, COPY TO SERVER, CLEAN UP
 cd ./server
-tar czf ngs-custodian.tar.gz server.js package.json package-lock.json ecosystem.config.js utilities routes public private
+tar czf ngs-custodian.tar.gz server.js package.json package-lock.json ecosystem.config.js utils routes public private
 scp -r -i $AWS_KEY_PATH ngs-custodian.tar.gz $HOST_SERVER_USER@$HOST_SERVER_IP:~
 rm ngs-custodian.tar.gz
 

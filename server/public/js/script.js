@@ -37,7 +37,7 @@ const ui = {
     element: document.querySelector('.file-list'),
     getFiles: function getFiles() {
       console.log('getting files');
-      const baseUrl = 'http://127.0.0.1:6464/pricelists';
+      const baseUrl = 'https://ngsprices.ml/pricelists';
       axios.get(`${baseUrl}/pricelists.json`)
         .then((res) => {
           console.log(res.data);
@@ -146,7 +146,7 @@ function postFile(file) {
     },
   };
   // POST FILE TO API
-  const baseURL = 'http://127.0.0.1:6464/';
+  const baseURL = 'https://ngsprices.ml/';
   const api = `${baseURL}api/pricelists/`;
   axios.post(api, fd, config)
     .then((res) => {

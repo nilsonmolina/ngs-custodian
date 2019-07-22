@@ -24,6 +24,8 @@ fs.readdir(directory, (err, folders) => {
     pricelists.push(pricelist);
   });
 
+  pricelists.sort((a, b) => (a.fileName < b.fileName ? 1 : -1));
+
   return fs.writeFileSync(
     path.join(directory, 'pricelists.json'),
     JSON.stringify(pricelists),
