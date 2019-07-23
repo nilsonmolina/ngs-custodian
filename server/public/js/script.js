@@ -4,9 +4,9 @@ const { axios } = window;
 // UI ELEMENTS
 // -------------------
 const ui = {
-  file: {
-    button: document.querySelector('.button'),
-    input: document.querySelector('input[type="file"]'),
+  uploader: {
+    button: document.querySelector('.uploader .button'),
+    input: document.querySelector('.uploader input[type="file"]'),
     isValid: function isValid() {
       const file = this.input.files[0];
       if (file.name.indexOf('.txt') === -1) {
@@ -33,14 +33,26 @@ const ui = {
       return true;
     },
   },
+  uploading: {
+    progressBar: document.querySelector('.uploading hr'),
+    progressPercentage: document.querySelector('.uploading h1'),
+    setProgress: function setProgress(percent) {
+      this.progressBar.style.width = `${percent}%`;
+      this.progressPercentage.innerHTML = `${percent}%`;
+    },
+  },
+  downloader: {
+    element: document.querySelector('.downloader'),
+    showResults: function showResults(results) {
+      console.log(results);
+    },
+  },
   savedFiles: {
     element: document.querySelector('.file-list'),
     getFiles: function getFiles() {
-      console.log('getting files');
-      const baseUrl = 'https://ngsprices.ml/pricelists';
+      const baseUrl = 'http://127.0.0.1:6464/pricelists';
       axios.get(`${baseUrl}/pricelists.json`)
         .then((res) => {
-          console.log(res.data);
           res.data.forEach((curr, index) => {
             const f = document.createElement('div');
             f.setAttribute('class', 'file hidden');
@@ -96,6 +108,21 @@ const ui = {
       return false;
     },
   },
+
+  modes: {
+    uploader: document.querySelector('.uploader'),
+    compressing: document.querySelector('.compressing'),
+    uploading: document.querySelector('.uploading'),
+    sanitizing: document.querySelector('.sanitizing'),
+    downloader: document.querySelector('.downloader'),
+  },
+  changeMode: function changeMode(mode) {
+    for (const curr in ui.modes) {
+      if (ui.modes[curr] === mode) ui.modes[curr].classList.add('visible');
+      else ui.modes[curr].classList.remove('visible');
+    }
+  },
+  startTime: null,
 };
 
 // -------------------
@@ -108,22 +135,29 @@ ui.savedFiles.getFiles();
 // -------------------
 window.addEventListener('dragover', preventDragDrop);
 window.addEventListener('drop', preventDragDrop);
-ui.file.input.addEventListener('change', tryUpload);
+ui.uploader.input.addEventListener('change', tryUpload);
 
 // -------------------
 // EVENT LISTENER FUNCTIONS
 // -------------------
 function preventDragDrop(e) {
-  if (e.target !== ui.file.input) e.preventDefault();
+  if (e.target !== ui.uploader.input) e.preventDefault();
 }
 
 function tryUpload() {
-  if (!ui.file.isValid()) return;
-  ui.file.input.disabled = true;
+  if (!ui.uploader.isValid()) return;
+  ui.startTime = new Date();
+  ui.changeMode(ui.modes.compressing);
 
-  compressFile(ui.file.input.files[0])
-    .then(f => postFile(f))
-    .catch(err => ui.alert.error(err));
+  compressFile(ui.uploader.input.files[0])
+    .then((f) => {
+      ui.changeMode(ui.modes.uploading);
+      postFile(f);
+    })
+    .catch((err) => {
+      ui.changeMode(ui.modes.uploader);
+      ui.alert.error(err);
+    });
 }
 
 // -------------------
@@ -136,31 +170,26 @@ function postFile(file) {
   const config = {
     headers: { 'Content-Type': 'multipart/form-data' },
     onUploadProgress: (e) => {
-      // ui.progress.innerHTML = `${Math.round((e.loaded * 100) / e.total)} %`;
       const percentage = Math.round((e.loaded * 100) / e.total);
-      if (percentage < 100) {
-        console.log(percentage);
-      } else {
-        console.log('sanitizing...');
-      }
+      if (percentage < 100) ui.uploading.setProgress(percentage);
+      else ui.changeMode(ui.modes.sanitizing);
     },
   };
   // POST FILE TO API
-  const baseURL = 'https://ngsprices.ml/';
+  const baseURL = 'http://127.0.0.1:6464/';
   const api = `${baseURL}api/pricelists/`;
   axios.post(api, fd, config)
     .then((res) => {
-      console.log(res.data);
-      console.log(baseURL + res.data.path);
-      window.open(baseURL + res.data.path, '_blank');
+      ui.changeMode(ui.modes.downloader);
+      ui.alert.success('File Grooming Completed!');
+      ui.downloader.showResults(res.data);
     })
     .catch((err) => {
+      ui.changeMode(ui.modes.uploader);
       ui.alert.error(err);
     })
     .finally(() => {
-      console.log('done!');
-      ui.file.input.disabled = false;
-      ui.file.input.value = null;
+      ui.uploader.input.value = null;
     });
 }
 
@@ -170,16 +199,13 @@ function compressFile(f) {
     worker.addEventListener('message', workerCompleted);
     worker.addEventListener('error', workerError);
 
-    console.log('compressing...');
     worker.postMessage(f);
 
     function workerCompleted(e) {
-      console.log('compression completed!', e);
       resolve(e.data);
     }
 
     function workerError(err) {
-      console.log('compression failed!');
       reject(err.message);
     }
   });

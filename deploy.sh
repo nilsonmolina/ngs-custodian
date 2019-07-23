@@ -29,5 +29,6 @@ rm ngs-custodian.tar.gz
 cd ngs-custodian
 npm install
 mkdir logs
+node ./server/utils/generatePriceListData.js
 pm2 start
 ENDSSH
