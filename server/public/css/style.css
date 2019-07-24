@@ -169,7 +169,7 @@ body {
   color: #fff;
   text-align: center;
   font-size: .9rem;
-  background: #E74889;
+  background: #FF2995;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -291,7 +291,7 @@ body {
   background: #FF2995;
   border: none;
   height: 1px;
-  width: 20%;
+  width: 0;
 }
 
 .file-uploader .content .mode .sanitizing {
@@ -408,6 +408,47 @@ body {
 
 .file-uploader .content .mode .downloader {
   display: none;
+  text-align: center;
+}
+
+.file-uploader .content .mode .downloader h2 {
+  font-weight: 300;
+  color: #444;
+  margin-top: 80px;
+  margin-bottom: 5px;
+}
+
+@media (max-width: 850px) {
+  .file-uploader .content .mode .downloader h2 {
+    margin-top: 25px;
+  }
+}
+
+.file-uploader .content .mode .downloader .title {
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.file-uploader .content .mode .downloader .value {
+  font-weight: 300;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.file-uploader .content .mode .downloader .button {
+  display: block;
+  max-width: 250px;
+  margin: 12px auto;
+  padding: 13px 5px;
+  color: #fff;
+  text-align: center;
+  font-size: .9rem;
+  background: #FF2995;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  text-decoration: none;
 }
 
 .file-uploader .content .saved-files {
@@ -491,7 +532,7 @@ body {
   height: 35px;
   border-radius: 50%;
   margin-right: 10px;
-  background: #E74889;
+  background: #FF2995;
   position: relative;
 }
 
@@ -583,7 +624,7 @@ body {
   0%, 100% {
     -webkit-transform: scale(0.25);
             transform: scale(0.25);
-    background-color: #E74889;
+    background-color: #c20062;
   }
   40%, 80% {
     -webkit-transform: scale(1);
@@ -595,7 +636,7 @@ body {
   0%, 100% {
     -webkit-transform: scale(0.25);
             transform: scale(0.25);
-    background-color: #E74889;
+    background-color: #c20062;
   }
   40%, 80% {
     -webkit-transform: scale(1);

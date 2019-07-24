@@ -10,7 +10,7 @@ const port = process.env.PORT || 6464;
 
 // LOAD MIDDLEWARE
 app.use(express.json());
-app.use(express.static('./public'));
+// app.use(express.static('./public'));
 
 // LOAD API & STATIC ROUTES
 app.use('/api/pricelists', pricelists);

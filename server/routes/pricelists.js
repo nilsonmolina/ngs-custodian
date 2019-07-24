@@ -1,6 +1,4 @@
 // DEPENDENCIES
-const crypto = require('crypto');
-const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
 const express = require('express');
@@ -14,22 +12,16 @@ const upload = multer({
   dest: 'public/uploads/',
   limits: { fileSize: 150 * 1000 * 1000 }, // 150MB
   fileFilter: (req, file, cb) => {
-    if (!file.originalname.match(/\.gz$|\.txt/)) return cb(new Error('Must be a txt file'), false);
+    if (!file.originalname.match(/\.gz$|\.txt/)) return cb(new Error('Must be a gz file'), false);
     return cb(null, true);
-  },
-  filename: (req, file, cb) => {
-    crypto.pseudoRandomBytes(16, (err, raw) => {
-      if (err) return cb(err);
-      return cb(null, raw.toString('hex') + path.extname(file.originalname));
-    });
   },
 });
 
 // API ROUTES
 router.post('/', upload.single('pricelist'), async (req, res) => {
   try {
-    const rawPath = `public/uploads/${req.file.filename}-raw`;
-    const sanitizedPath = `public/uploads/${req.file.filename}-clean`;
+    const rawPath = `public/uploads/${req.file.filename}-raw.txt`;
+    const sanitizedPath = `public/uploads/${req.file.filename}-clean.csv`;
 
     // UNZIP -> SANITIZE FILE -> ZIP FILE
     await zipper.unzip(req.file.path, rawPath);

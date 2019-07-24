@@ -1,5 +1,7 @@
 /* eslint-env browser */
 const { axios } = window;
+
+const baseURL = 'http://127.0.0.1:6464';
 // -------------------
 // UI ELEMENTS
 // -------------------
@@ -43,15 +45,21 @@ const ui = {
   },
   downloader: {
     element: document.querySelector('.downloader'),
+    button: document.querySelector('.downloader .button'),
+    parts: document.querySelector('.downloader .parts .value'),
+    cleanTime: document.querySelector('.downloader .clean-time .value'),
+    totalTime: document.querySelector('.downloader .total-time .value'),
     showResults: function showResults(results) {
-      console.log(results);
+      this.button.href = `${baseURL}/${results.path}`;
+      this.parts.innerHTML = `${results.parts.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parts`;
+      this.cleanTime.innerHTML = `${Math.round((results.elapsed / 1000) * 10) / 10} seconds`;
+      this.totalTime.innerHTML = `${Math.round((new Date() - ui.startTime) / 1000 * 10) / 10} seconds`;
     },
   },
   savedFiles: {
     element: document.querySelector('.file-list'),
     getFiles: function getFiles() {
-      const baseUrl = 'http://127.0.0.1:6464/pricelists';
-      axios.get(`${baseUrl}/pricelists.json`)
+      axios.get(`${baseURL}/pricelists/pricelists.json`)
         .then((res) => {
           res.data.forEach((curr, index) => {
             const f = document.createElement('div');
@@ -68,8 +76,8 @@ const ui = {
                   <div class="size">${curr.fileSize}MB</div>
               </div>
               <div class="download">
-                  <a href="${baseUrl}/${curr.rawUrl}" class="raw">raw</a>
-                  <a href="${baseUrl}/${curr.cleanedUrl}" class="cleaned">cleaned</a>
+                  <a href="${baseURL}/pricelists/${curr.rawUrl}" class="raw" download>raw</a>
+                  <a href="${baseURL}/pricelists/${curr.cleanedUrl}" class="cleaned" download>cleaned</a>
               </div>
             `;
             this.element.appendChild(f);
@@ -136,6 +144,7 @@ ui.savedFiles.getFiles();
 window.addEventListener('dragover', preventDragDrop);
 window.addEventListener('drop', preventDragDrop);
 ui.uploader.input.addEventListener('change', tryUpload);
+ui.downloader.button.addEventListener('click', () => ui.changeMode(ui.modes.uploader));
 
 // -------------------
 // EVENT LISTENER FUNCTIONS
@@ -176,8 +185,7 @@ function postFile(file) {
     },
   };
   // POST FILE TO API
-  const baseURL = 'http://127.0.0.1:6464/';
-  const api = `${baseURL}api/pricelists/`;
+  const api = `${baseURL}/api/pricelists/`;
   axios.post(api, fd, config)
     .then((res) => {
       ui.changeMode(ui.modes.downloader);

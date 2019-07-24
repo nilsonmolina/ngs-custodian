@@ -1,6 +1,5 @@
 $base-color-neon: #FF2995;
 $base-color-neon-darken: darken($base-color-neon, 20);
-$base-color: #E74889;
 
 $responsive-medium: 850px;
 $responsive-small: 600px;
@@ -126,7 +125,7 @@ body {
                     color: #fff;
                     text-align: center;
                     font-size: .9rem;
-                    background: $base-color;
+                    background: $base-color-neon;
                     user-select: none;
 
                     @media (max-width: $responsive-medium) {
@@ -232,7 +231,7 @@ body {
                         background: $base-color-neon;
                         border: none;
                         height: 1px;
-                        width: 20%;
+                        width: 0;
                     }
                 }
             }
@@ -337,6 +336,41 @@ body {
             ---------------------*/
             .downloader {
                 display: none;
+                text-align: center;
+
+                h2 {
+                    font-weight: 300;
+                    color: #444;
+                    margin-top: 80px;
+                    margin-bottom: 5px;
+
+                    @media (max-width: $responsive-medium) {
+                        margin-top: 25px;
+                    }
+                }
+
+                .title {
+                    font-weight: 400;
+                    font-size: 16px;
+                }
+                .value {
+                    font-weight: 300;
+                    font-size: 14px;
+                    font-style: italic;
+                }
+
+                .button {
+                    display: block;
+                    max-width: 250px;
+                    margin: 12px auto;
+                    padding: 13px 5px;
+                    color: #fff;
+                    text-align: center;
+                    font-size: .9rem;
+                    background: $base-color-neon;
+                    user-select: none;
+                    text-decoration: none;
+                }
             }
         }
 
@@ -401,7 +435,7 @@ body {
                         height: 35px;
                         border-radius: 50%;
                         margin-right: 10px;
-                        background: $base-color;
+                        background: $base-color-neon;
                         position: relative;
     
                         svg {
@@ -488,7 +522,7 @@ body {
 @keyframes cube-compression {
 	0%, 100% { 
         transform: scale(0.25);
-        background-color: $base-color;
+        background-color: $base-color-neon-darken;
     }
 	40%, 80% {
         transform: scale(1.0);

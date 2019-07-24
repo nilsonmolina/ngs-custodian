@@ -3,7 +3,6 @@
 self.importScripts('https://cdnjs.cloudflare.com/ajax/libs/pako/1.0.10/pako.min.js');
 
 self.addEventListener('message', (e) => {
-  console.log(e.data);
   new Response(e.data).arrayBuffer()
     .then((data) => {
       const file = pako.gzip(data);
