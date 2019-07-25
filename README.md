@@ -1,7 +1,7 @@
 # ngs-custodian
 **Site:** [https://www.ngsprices.ml](https://www.ngsprices.ml)  
 
-This tool allows users to upload a zip file containing raw CAT price data, that will then be
+This tool allows users to upload a txt file containing raw CAT price data, that will then be
 parsed, sanitized and updated to be compatible for multiple database systems.
 
 # Server Setup Instructions
