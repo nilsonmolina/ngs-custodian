@@ -294,6 +294,9 @@ server {
 }
 ```
 
+More Info Here:
+***https://medium.com/@mvuksano/how-to-properly-configure-your-nginx-for-tls-564651438fe0***
+
 ### Parsing Nginx Logs with GoAccess
 1. Install GoAccess. `apt` has old version, to get latest version use the following commands.
     ```bash

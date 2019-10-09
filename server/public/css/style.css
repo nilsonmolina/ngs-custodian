@@ -1,3 +1,6 @@
+/* --------------------
+    BASE STYLES
+---------------------*/
 *, *::before, *::after {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -7,7 +10,8 @@
 
 body {
   background: #D1D7DD;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
   font-size: 1.1rem;
@@ -30,11 +34,7 @@ body {
 .file-uploader {
   min-height: 500px;
   width: 800px;
-  position: absolute;
-  top: 5vw;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+  margin: 5vh auto;
   background: #F5F8FB;
   -webkit-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.25);
           box-shadow: 0 2px 15px rgba(0, 0, 0, 0.25);
@@ -50,11 +50,9 @@ body {
 
 @media (max-width: 850px) {
   .file-uploader {
+    min-height: 100vh;
     width: 100vw;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+    margin: 0;
     -webkit-transform: translateX(0);
             transform: translateX(0);
   }
@@ -83,9 +81,6 @@ body {
       -ms-flex-direction: row;
           flex-direction: row;
   padding: 30px;
-  /* --------------------
-            SAVED FILES
-        ---------------------*/
 }
 
 @media (max-width: 850px) {
@@ -95,41 +90,32 @@ body {
   }
 }
 
-.file-uploader .content .mode {
+/* --------------------
+    MODE CONTAINER
+---------------------*/
+.mode {
   min-height: 400px;
   min-width: 350px;
   margin-right: 30px;
   border: 1px solid #ddd;
   position: relative;
-  /* --------------------
-                UPLOADER
-            ---------------------*/
-  /* --------------------
-                COMPRESSING
-            ---------------------*/
-  /* --------------------
-                UPLOADING
-            ---------------------*/
-  /* --------------------
-                SANITIZING
-            ---------------------*/
-  /* --------------------
-                DOWNLOADER
-            ---------------------*/
 }
 
 @media (max-width: 850px) {
-  .file-uploader .content .mode {
+  .mode {
     min-height: 200px;
     margin: 0 0 15px 0;
   }
 }
 
-.file-uploader .content .mode .uploader {
+/* --------------------
+    MODE - UPLOADER
+---------------------*/
+.uploader {
   display: none;
 }
 
-.file-uploader .content .mode .uploader svg {
+.uploader .image {
   width: 150px;
   fill: #ddd;
   position: absolute;
@@ -140,13 +126,13 @@ body {
 }
 
 @media (max-width: 850px) {
-  .file-uploader .content .mode .uploader svg {
+  .uploader .image {
     width: 100px;
     top: 5%;
   }
 }
 
-.file-uploader .content .mode .uploader .text {
+.uploader .text {
   color: #bbb;
   width: 60%;
   text-align: center;
@@ -157,7 +143,7 @@ body {
           transform: translateX(-50%);
 }
 
-.file-uploader .content .mode .uploader .button {
+.uploader .button {
   width: 60%;
   max-width: 300px;
   padding: 13px 20px;
@@ -178,16 +164,16 @@ body {
 }
 
 @media (max-width: 850px) {
-  .file-uploader .content .mode .uploader .button {
+  .uploader .button {
     top: 70%;
   }
 }
 
-.file-uploader .content .mode .uploader .button:hover {
+.uploader .button:hover {
   cursor: pointer;
 }
 
-.file-uploader .content .mode .uploader #upload-file {
+.uploader #upload-file {
   display: block;
   opacity: 0;
   width: 100%;
@@ -196,63 +182,95 @@ body {
   bottom: 0;
 }
 
-.file-uploader .content .mode .compressing {
+/* --------------------
+    MODE - COMPRESSING
+---------------------*/
+.compressing {
   display: none;
 }
 
-.file-uploader .content .mode .compressing h2 {
+.compressing .title {
   font-weight: 300;
   color: #444;
   text-align: center;
 }
 
-.file-uploader .content .mode .compressing .cube-grid {
+.compressing .cube-grid {
   width: 75px;
   height: 75px;
   margin: 125px auto 5px;
 }
 
 @media (max-width: 850px) {
-  .file-uploader .content .mode .compressing .cube-grid {
+  .compressing .cube-grid {
     margin: 40px auto 0;
   }
 }
 
-.file-uploader .content .mode .compressing .cube-grid .cube {
+.compressing .cube-grid .cube {
   width: 30%;
   height: 30%;
   float: left;
   background: #FF2995;
   -webkit-animation: cube-compression 2s infinite;
-  animation: cube-compression 2s infinite;
+          animation: cube-compression 2s infinite;
 }
 
-.file-uploader .content .mode .compressing .cube-grid .cube7 {
+.compressing .cube-grid .cube7 {
   -webkit-animation-delay: 0s;
-  animation-delay: 0s;
+          animation-delay: 0s;
 }
 
-.file-uploader .content .mode .compressing .cube-grid .cube4, .file-uploader .content .mode .compressing .cube-grid .cube8 {
+.compressing .cube-grid .cube4, .compressing .cube-grid .cube8 {
   -webkit-animation-delay: 0.2s;
-  animation-delay: 0.2s;
+          animation-delay: 0.2s;
 }
 
-.file-uploader .content .mode .compressing .cube-grid .cube1, .file-uploader .content .mode .compressing .cube-grid .cube5, .file-uploader .content .mode .compressing .cube-grid .cube9 {
+.compressing .cube-grid .cube1, .compressing .cube-grid .cube5, .compressing .cube-grid .cube9 {
   -webkit-animation-delay: 0.4s;
-  animation-delay: 0.4s;
+          animation-delay: 0.4s;
 }
 
-.file-uploader .content .mode .compressing .cube-grid .cube2, .file-uploader .content .mode .compressing .cube-grid .cube6 {
+.compressing .cube-grid .cube2, .compressing .cube-grid .cube6 {
   -webkit-animation-delay: 0.6s;
-  animation-delay: 0.6s;
+          animation-delay: 0.6s;
 }
 
-.file-uploader .content .mode .compressing .cube-grid .cube3 {
+.compressing .cube-grid .cube3 {
   -webkit-animation-delay: 0.8s;
-  animation-delay: 0.8s;
+          animation-delay: 0.8s;
 }
 
-.file-uploader .content .mode .uploading {
+@-webkit-keyframes cube-compression {
+  0%, 100% {
+    -webkit-transform: scale(0.25);
+            transform: scale(0.25);
+    background-color: #c20062;
+  }
+  40%, 80% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    background-color: #FF2995;
+  }
+}
+
+@keyframes cube-compression {
+  0%, 100% {
+    -webkit-transform: scale(0.25);
+            transform: scale(0.25);
+    background-color: #c20062;
+  }
+  40%, 80% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    background-color: #FF2995;
+  }
+}
+
+/* --------------------
+    MODE - UPLOADING
+---------------------*/
+.uploading {
   display: none;
   position: absolute;
   top: 0;
@@ -261,7 +279,7 @@ body {
   right: 0;
 }
 
-.file-uploader .content .mode .uploading .container {
+.uploading .container {
   position: absolute;
   text-align: center;
   top: 30%;
@@ -271,31 +289,34 @@ body {
 }
 
 @media (max-width: 850px) {
-  .file-uploader .content .mode .uploading .container {
+  .uploading .container {
     top: 20%;
   }
 }
 
-.file-uploader .content .mode .uploading .container .title {
+.uploading .container .title {
   font-size: 40px;
   font-weight: 100;
   color: #FF2995;
 }
 
-.file-uploader .content .mode .uploading .container h1 {
+.uploading .container .percentage {
   font-size: 60px;
   margin-top: -10px;
   color: #444444;
 }
 
-.file-uploader .content .mode .uploading .container hr {
+.uploading .container .progress-bar {
   background: #FF2995;
   border: none;
   height: 1px;
   width: 0;
 }
 
-.file-uploader .content .mode .sanitizing {
+/* --------------------
+    MODE - SANITIZING
+---------------------*/
+.sanitizing {
   display: none;
   position: absolute;
   top: 40%;
@@ -304,13 +325,13 @@ body {
           transform: translateX(-50%);
 }
 
-.file-uploader .content .mode .sanitizing h2 {
+.sanitizing .title {
   margin-top: 2px;
   font-weight: 300;
   color: #444;
 }
 
-.file-uploader .content .mode .sanitizing .boxes {
+.sanitizing .boxes {
   --size: 32px;
   --duration: 800ms;
   height: calc(var(--size) * 2);
@@ -325,7 +346,7 @@ body {
           transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
 }
 
-.file-uploader .content .mode .sanitizing .boxes .box {
+.sanitizing .box {
   width: var(--size);
   height: var(--size);
   top: 0;
@@ -335,35 +356,35 @@ body {
           transform-style: preserve-3d;
 }
 
-.file-uploader .content .mode .sanitizing .boxes .box:nth-child(1) {
+.sanitizing .box:nth-child(1) {
   -webkit-transform: translate(100%, 0);
           transform: translate(100%, 0);
   -webkit-animation: box1-sanitize var(--duration) linear infinite;
           animation: box1-sanitize var(--duration) linear infinite;
 }
 
-.file-uploader .content .mode .sanitizing .boxes .box:nth-child(2) {
+.sanitizing .box:nth-child(2) {
   -webkit-transform: translate(0, 100%);
           transform: translate(0, 100%);
   -webkit-animation: box2-sanitize var(--duration) linear infinite;
           animation: box2-sanitize var(--duration) linear infinite;
 }
 
-.file-uploader .content .mode .sanitizing .boxes .box:nth-child(3) {
+.sanitizing .box:nth-child(3) {
   -webkit-transform: translate(100%, 100%);
           transform: translate(100%, 100%);
   -webkit-animation: box3-sanitize var(--duration) linear infinite;
           animation: box3-sanitize var(--duration) linear infinite;
 }
 
-.file-uploader .content .mode .sanitizing .boxes .box:nth-child(4) {
+.sanitizing .box:nth-child(4) {
   -webkit-transform: translate(200%, 0);
           transform: translate(200%, 0);
   -webkit-animation: box4-sanitize var(--duration) linear infinite;
           animation: box4-sanitize var(--duration) linear infinite;
 }
 
-.file-uploader .content .mode .sanitizing .boxes .box > div {
+.sanitizing .box > div {
   --background: #FF2995;
   --top: auto;
   --right: auto;
@@ -384,267 +405,27 @@ body {
           transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));
 }
 
-.file-uploader .content .mode .sanitizing .boxes .box > div:nth-child(1) {
+.sanitizing .box > div:nth-child(1) {
   --top: 0;
   --left: 0;
 }
 
-.file-uploader .content .mode .sanitizing .boxes .box > div:nth-child(2) {
+.sanitizing .box > div:nth-child(2) {
   --background: #dc006f;
   --right: 0;
   --rotateY: 90deg;
 }
 
-.file-uploader .content .mode .sanitizing .boxes .box > div:nth-child(3) {
+.sanitizing .box > div:nth-child(3) {
   --background: #f5007c;
   --rotateX: -90deg;
 }
 
-.file-uploader .content .mode .sanitizing .boxes .box > div:nth-child(4) {
+.sanitizing .box > div:nth-child(4) {
   --background: #DBE3F4;
   --top: 0;
   --left: 0;
   --translateZ: calc(var(--size) * 3 * -1);
-}
-
-.file-uploader .content .mode .downloader {
-  display: none;
-  text-align: center;
-}
-
-.file-uploader .content .mode .downloader h2 {
-  font-weight: 300;
-  color: #444;
-  margin-top: 80px;
-  margin-bottom: 5px;
-}
-
-@media (max-width: 850px) {
-  .file-uploader .content .mode .downloader h2 {
-    margin-top: 25px;
-  }
-}
-
-.file-uploader .content .mode .downloader .title {
-  font-weight: 400;
-  font-size: 16px;
-}
-
-.file-uploader .content .mode .downloader .value {
-  font-weight: 300;
-  font-size: 14px;
-  font-style: italic;
-}
-
-.file-uploader .content .mode .downloader .button {
-  display: block;
-  max-width: 250px;
-  margin: 12px auto;
-  padding: 13px 5px;
-  color: #fff;
-  text-align: center;
-  font-size: .9rem;
-  background: #FF2995;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  text-decoration: none;
-}
-
-.file-uploader .content .saved-files {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 0 0px;
-          flex: 1 0 0;
-  padding: 5px;
-}
-
-.file-uploader .content .saved-files h4 {
-  font-weight: 300;
-  font-size: .9rem;
-  margin-bottom: 10px;
-  text-decoration: underline;
-}
-
-.file-uploader .content .saved-files .file-list {
-  max-height: 400px;
-  overflow-y: auto;
-}
-
-@media (max-width: 850px) {
-  .file-uploader .content .saved-files .file-list {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    max-height: none;
-  }
-}
-
-.file-uploader .content .saved-files .file-list .file {
-  margin-bottom: 15px;
-  padding: 13px 15px;
-  background: #fff;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  font-size: .8rem;
-  -webkit-box-shadow: 3px 4px 3px rgba(0, 0, 0, 0.1);
-          box-shadow: 3px 4px 3px rgba(0, 0, 0, 0.1);
-  opacity: 1;
-  -webkit-transition: opacity .4s ease-in, -webkit-box-shadow .2s ease-in, -webkit-transform .4s ease-in;
-  transition: opacity .4s ease-in, -webkit-box-shadow .2s ease-in, -webkit-transform .4s ease-in;
-  transition: box-shadow .2s ease-in, transform .4s ease-in, opacity .4s ease-in;
-  transition: box-shadow .2s ease-in, transform .4s ease-in, opacity .4s ease-in, -webkit-box-shadow .2s ease-in, -webkit-transform .4s ease-in;
-}
-
-@media (max-width: 850px) {
-  .file-uploader .content .saved-files .file-list .file {
-    min-width: 325px;
-  }
-  .file-uploader .content .saved-files .file-list .file:nth-child(odd) {
-    margin-right: 10px;
-  }
-}
-
-.file-uploader .content .saved-files .file-list .file.hidden {
-  -webkit-transform: translateY(10px);
-          transform: translateY(10px);
-  opacity: 0;
-}
-
-.file-uploader .content .saved-files .file-list .file:hover {
-  -webkit-box-shadow: 3px 5px 4px rgba(0, 0, 0, 0.15);
-          box-shadow: 3px 5px 4px rgba(0, 0, 0, 0.15);
-}
-
-.file-uploader .content .saved-files .file-list .file > * {
-  display: inline-block;
-}
-
-.file-uploader .content .saved-files .file-list .file .icon {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  margin-right: 10px;
-  background: #FF2995;
-  position: relative;
-}
-
-.file-uploader .content .saved-files .file-list .file .icon svg {
-  height: 18px;
-  width: 18px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  fill: white;
-}
-
-.file-uploader .content .saved-files .file-list .file .details {
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  color: #777;
-}
-
-.file-uploader .content .saved-files .file-list .file .details .size {
-  font-size: .6rem;
-}
-
-.file-uploader .content .saved-files .file-list .file .download {
-  position: relative;
-}
-
-.file-uploader .content .saved-files .file-list .file .download a {
-  display: inline-block;
-  margin-right: 15px;
-  font-size: .65rem;
-  color: blue;
-  text-transform: uppercase;
-}
-
-.file-uploader .content .saved-files .file-list .file .download a:last-child {
-  margin-right: 0;
-}
-
-/* --------------------
-    ALERTS
----------------------*/
-.alerts {
-  position: fixed;
-  top: 15px;
-  right: 20px;
-  z-index: 100;
-}
-
-.alerts .notification {
-  width: 300px;
-  color: #fff;
-  font-size: 14px;
-  padding: 20px 30px;
-  opacity: 0;
-  visibility: hidden;
-  border-radius: 4px;
-  -webkit-transform: translateY(35%);
-          transform: translateY(35%);
-  -webkit-transition: all .5s ease;
-  transition: all .5s ease;
-}
-
-.alerts .notification:not(:last-child) {
-  margin-bottom: 10px;
-}
-
-.alerts .notification.is-danger, .alerts .notification.is-success {
-  opacity: 1;
-  visibility: visible;
-  -webkit-transform: translateY(0);
-          transform: translateY(0);
-}
-
-.alerts .notification.is-danger {
-  background-color: #FF3860;
-}
-
-.alerts .notification.is-success {
-  background-color: #23D160;
-}
-
-/* --------------------
-    ANIMATIONS
----------------------*/
-@-webkit-keyframes cube-compression {
-  0%, 100% {
-    -webkit-transform: scale(0.25);
-            transform: scale(0.25);
-    background-color: #c20062;
-  }
-  40%, 80% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    background-color: #FF2995;
-  }
-}
-@keyframes cube-compression {
-  0%, 100% {
-    -webkit-transform: scale(0.25);
-            transform: scale(0.25);
-    background-color: #c20062;
-  }
-  40%, 80% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    background-color: #FF2995;
-  }
 }
 
 @-webkit-keyframes box1-sanitize {
@@ -749,5 +530,224 @@ body {
     -webkit-transform: translate(100%, 100%);
             transform: translate(100%, 100%);
   }
+}
+
+/* --------------------
+    MODE - DOWNLOADER
+---------------------*/
+.downloader {
+  display: none;
+  text-align: center;
+}
+
+.downloader .title {
+  font-weight: 300;
+  color: #444;
+  margin-top: 80px;
+  margin-bottom: 5px;
+}
+
+@media (max-width: 850px) {
+  .downloader .title {
+    margin-top: 25px;
+  }
+}
+
+.downloader .description {
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.downloader .value {
+  font-weight: 300;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.downloader .button {
+  display: block;
+  max-width: 250px;
+  margin: 12px auto;
+  padding: 13px 5px;
+  color: #fff;
+  text-align: center;
+  font-size: .9rem;
+  background: #FF2995;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  text-decoration: none;
+}
+
+/* --------------------
+    SAVED FILES
+---------------------*/
+.saved-files {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 0px;
+          flex: 1 0 0;
+  padding: 5px;
+}
+
+.saved-files .title {
+  font-weight: 300;
+  font-size: .9rem;
+  margin-bottom: 10px;
+  text-decoration: underline;
+}
+
+.saved-files .file-list {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 5px 5px 5px 0;
+}
+
+@media (max-width: 850px) {
+  .saved-files .file-list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    max-height: none;
+  }
+}
+
+.saved-files .file-list .file {
+  margin-bottom: 15px;
+  padding: 13px 15px;
+  background: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: .8rem;
+  -webkit-box-shadow: 3px 4px 3px rgba(0, 0, 0, 0.1);
+          box-shadow: 3px 4px 3px rgba(0, 0, 0, 0.1);
+  opacity: 1;
+  -webkit-transition: opacity .4s ease-in, -webkit-box-shadow .2s ease-in, -webkit-transform .4s ease-in;
+  transition: opacity .4s ease-in, -webkit-box-shadow .2s ease-in, -webkit-transform .4s ease-in;
+  transition: box-shadow .2s ease-in, transform .4s ease-in, opacity .4s ease-in;
+  transition: box-shadow .2s ease-in, transform .4s ease-in, opacity .4s ease-in, -webkit-box-shadow .2s ease-in, -webkit-transform .4s ease-in;
+}
+
+@media (max-width: 850px) {
+  .saved-files .file-list .file {
+    min-width: 325px;
+  }
+  .saved-files .file-list .file:nth-child(odd) {
+    margin-right: 10px;
+  }
+}
+
+.saved-files .file-list .file.hidden {
+  -webkit-transform: translateY(10px);
+          transform: translateY(10px);
+  opacity: 0;
+}
+
+.saved-files .file-list .file:hover {
+  -webkit-box-shadow: 3px 5px 4px rgba(0, 0, 0, 0.15);
+          box-shadow: 3px 5px 4px rgba(0, 0, 0, 0.15);
+}
+
+.saved-files .file-list .file > * {
+  display: inline-block;
+}
+
+.saved-files .file-list .file .icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background: #FF2995;
+  position: relative;
+}
+
+.saved-files .file-list .file .icon svg {
+  height: 18px;
+  width: 18px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  fill: white;
+}
+
+.saved-files .file-list .file .details {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  color: #777;
+}
+
+.saved-files .file-list .file .details .size {
+  font-size: .6rem;
+}
+
+.saved-files .file-list .file .download {
+  position: relative;
+}
+
+.saved-files .file-list .file .download a {
+  display: inline-block;
+  margin-right: 15px;
+  font-size: .65rem;
+  color: blue;
+  text-transform: uppercase;
+}
+
+.saved-files .file-list .file .download a:last-child {
+  margin-right: 0;
+}
+
+/* --------------------
+    ALERTS
+---------------------*/
+.alerts {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  z-index: 100;
+}
+
+.alerts .notification {
+  width: 300px;
+  color: #fff;
+  font-size: 14px;
+  padding: 20px 30px;
+  opacity: 0;
+  visibility: hidden;
+  border-radius: 4px;
+  -webkit-transform: translateY(35%);
+          transform: translateY(35%);
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+}
+
+.alerts .notification:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.alerts .notification.is-danger, .alerts .notification.is-success {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+.alerts .notification.is-danger {
+  background-color: #FF3860;
+}
+
+.alerts .notification.is-success {
+  background-color: #23D160;
 }
 /*# sourceMappingURL=style.css.map */

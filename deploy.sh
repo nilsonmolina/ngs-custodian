@@ -5,14 +5,13 @@ set -e # Any subsequent(*) commands which fail will cause the shell script to ex
 [ -z "$HOST_SERVER_IP" ] && echo "Need to set HOST_SERVER_IP" && exit 1;
 [ -z "$HOST_SERVER_USER" ] && echo "Need to set HOST_SERVER_USER" && exit 1;
 [ -z "$AWS_KEY_PATH" ] && echo "Need to set HOST_SERVER_USER" && exit 1;
-[ -z "$API_PASSWORD" ] && echo "Need to set API_PASSWORD" && exit 1;
 
 # REPLACE LOCALHOST CALLS WITH SERVER CALLS
 sed -i -e 's/http:\/\/127.0.0.1:6464/https:\/\/ngsprices.ml/g' ./server/public/js/script.js
 
 # COMPRESS FILE, COPY TO SERVER, CLEAN UP
 cd ./server
-tar --exclude public/pricelists -czf ngs-custodian.tar.gz server.js package.json package-lock.json ecosystem.config.js utils routes public private
+tar --exclude public/pricelists -czf ngs-custodian.tar.gz server.js package.json package-lock.json ecosystem.config.js utils routes public
 scp -r -i $AWS_KEY_PATH ngs-custodian.tar.gz $HOST_SERVER_USER@$HOST_SERVER_IP:~
 rm ngs-custodian.tar.gz
 
