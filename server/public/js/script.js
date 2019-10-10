@@ -58,7 +58,7 @@ const ui = {
     totalTime: document.querySelector('.downloader .total-time .value'),
     showResults(results) {
       this.button.href = `${baseURL}/${results.path}`;
-      this.parts.innerHTML = `${results.parts.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parts`;
+      this.parts.innerHTML = `${Number(results.parts).toLocaleString()} parts`;
       this.cleanTime.innerHTML = `${Math.round((results.elapsed / 1000) * 10) / 10} seconds`;
       this.totalTime.innerHTML = `${Math.round(((new Date() - ui.startTime) / 1000) * 10) / 10} seconds`;
     },
@@ -119,7 +119,7 @@ const ui = {
 // SETUP & INIT
 // -------------------
 const { axios } = window;
-const baseURL = 'https://ngsprices.ml';
+const baseURL = 'http://127.0.0.1:6464';
 
 populateSavedFilesList();
 
@@ -167,8 +167,10 @@ function populateSavedFilesList() {
 }
 
 function postFile(file) {
+  // ADD FILE TO FORMDATA FOR API POST
   const fd = new FormData();
   fd.append('pricelist', file, 'pricelist.gz');
+
   // CONFIGURE AXIOS POST
   const config = {
     headers: { 'Content-Type': 'multipart/form-data' },
@@ -178,6 +180,7 @@ function postFile(file) {
       else ui.changeMode(ui.modes.sanitizing);
     },
   };
+
   // POST FILE TO API
   axios.post(`${baseURL}/api/pricelists/`, fd, config)
     .then((res) => {
@@ -194,19 +197,17 @@ function postFile(file) {
 function compressFile(file) {
   return new Promise((resolve, reject) => {
     const worker = new Worker('./js/compressionWebWorker.js');
-    worker.addEventListener('message', (e) => resolve(e.data));
-    worker.addEventListener('error', (err) => reject(err.message));
+
+    worker.addEventListener('error', (err) => reject(err));
+    worker.addEventListener('message', (e) => {
+      if (!e.data.error) resolve(e.data);
+      console.log(e.data);
+      reject(new Error('failed to compress file'));
+    });
 
     worker.postMessage(file);
   });
 }
-
-// BACKUP
-// worker.addEventListener('message', (e) => (
-//   !e.data.error
-//     ? resolve(e.data)
-//     : reject(new Error('Failed to compress file.'))
-// ));
 
 // -------------------
 // TESTING ALTERNATIVES
