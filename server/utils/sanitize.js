@@ -28,15 +28,13 @@ function sanitize(i, o) {
           ? col.replace(/['"]+/g, '')
           : col.replace(/['"\s]+/g, '')
       ));
+
       // ADD BRAND COLUMN
       line.push('CAT');
 
       // WRITE TO OUTPUT FILE
       wstream.write(`${line.join(',')}\n`, (err) => {
-        if (err) {
-          console.log(err);
-          reject(new Error(err));
-        }
+        if (err) reject(new Error(err));
       });
     });
 

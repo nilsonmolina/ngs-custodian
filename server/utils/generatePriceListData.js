@@ -10,13 +10,13 @@ fs.readdir(directory, (err, folders) => {
   folders.forEach((folder) => {
     if (folder.includes('.json') || folder.includes('.DS_Store')) return;
     const pricelist = { fileName: folder };
-    const lists = fs.readdirSync(path.join(directory, '/', folder));
+    const lists = fs.readdirSync(path.join(directory, folder));
 
     lists.forEach((curr) => {
       if (curr.includes('raw')) pricelist.rawUrl = `${folder}/${curr}`;
       if (curr.includes('clean')) {
         pricelist.cleanedUrl = `${folder}/${curr}`;
-        const stats = fs.statSync(path.join(directory, '/', folder, curr));
+        const stats = fs.statSync(path.join(directory, folder, curr));
         pricelist.fileSize = Math.round((stats.size / 1000000.0) * 10) / 10;
       }
     });

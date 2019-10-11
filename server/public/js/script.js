@@ -190,7 +190,8 @@ function postFile(file) {
     })
     .catch((err) => {
       ui.changeMode(ui.modes.uploader);
-      ui.alert.error(err);
+      console.log(err);
+      ui.alert.error('Could not sanitize file. Please check file and try again');
     });
 }
 
@@ -201,7 +202,6 @@ function compressFile(file) {
     worker.addEventListener('error', (err) => reject(err));
     worker.addEventListener('message', (e) => {
       if (!e.data.error) resolve(e.data);
-      console.log(e.data);
       reject(new Error('failed to compress file'));
     });
 

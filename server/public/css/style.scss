@@ -39,7 +39,10 @@ body {
 .file-uploader {
     min-height: 500px;
     width: 800px;
-    margin: 5vh auto;
+    position: absolute;
+    top: 5vw;
+    left: 50%;
+    transform: translateX(-50%);
     background: #F5F8FB;
     box-shadow: 0 2px 15px rgba(0, 0, 0, .25);
     display: flex;
@@ -90,7 +93,6 @@ body {
         min-height: 200px;
         margin: 0 0 15px 0;
     }
-    
 }
 
 /* --------------------
@@ -257,16 +259,15 @@ body {
 /* --------------------
     MODE - SANITIZING
 ---------------------*/
+$size: 32px;
+$duration: 800ms;
+
 .sanitizing {
     display: none;
     position: absolute;
     top: 40%;
     left: 50%;
     transform: translateX(-50%);
-
-    $colorRight: darken(#FF2995, 15%);
-    $colorLeft: darken(#FF2995, 10%);
-    $shadow: #DBE3F4;
 
     .title {
         margin-top: 2px;
@@ -275,76 +276,56 @@ body {
     }
 
     .boxes {
-        --size: 32px;
-        --duration: 800ms;
-        height: calc(var(--size) * 2);
-        width: calc(var(--size) * 3);
+        height: calc(#{$size} * 2);
+        width: calc(#{$size}* 3);
         position: relative;
         transform-style: preserve-3d;
         transform-origin: 50% 50%;
-        margin-top: calc(var(--size) * 1.5 * -1);
+        margin-top: calc(#{$size} * 1.5 * -1);
         transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
     }
 
     .box {
-        width: var(--size);
-        height: var(--size);
-        top: 0;
-        left: 0;
+        width: $size;
+        height: $size;
         position: absolute;
         transform-style: preserve-3d;
         &:nth-child(1) {
             transform: translate(100%, 0);
-            animation: box1-sanitize var(--duration) linear infinite;
+            animation: box1-sanitize $duration linear infinite;
         }
         &:nth-child(2) {
             transform: translate(0, 100%);
-            animation: box2-sanitize var(--duration) linear infinite;
+            animation: box2-sanitize $duration linear infinite;
         }
         &:nth-child(3) {
             transform: translate(100%, 100%);
-            animation: box3-sanitize var(--duration) linear infinite;
+            animation: box3-sanitize $duration linear infinite;
         }
         &:nth-child(4) {
             transform: translate(200%, 0);
-            animation: box4-sanitize var(--duration) linear infinite;
+            animation: box4-sanitize $duration linear infinite;
         }
         & > div {
-            --background: #{$base-color};
-            --top: auto;
-            --right: auto;
-            --bottom: auto;
-            --left: auto;
-            --translateZ: calc(var(--size) / 2);
-            --rotateY: 0deg;
-            --rotateX: 0deg;
             position: absolute;
             width: 100%;
             height: 100%;
-            background: var(--background);
-            top: var(--top);
-            right: var(--right);
-            bottom: var(--bottom);
-            left: var(--left);
-            transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));
+            background: $base-color;
+            
             &:nth-child(1) {
-                --top: 0;
-                --left: 0;
+                transform: rotateY(0deg) rotateX(0deg) translateZ(calc(#{$size} / 2));
             }
             &:nth-child(2) {
-                --background: #{$colorRight};
-                --right: 0;
-                --rotateY: 90deg;
+                background: darken($base-color, 15%);
+                transform: rotateY(90deg) rotateX(0deg) translateZ(calc(#{$size} / 2));
             }
             &:nth-child(3) {
-                --background: #{$colorLeft};
-                --rotateX: -90deg;
+                background: darken($base-color, 10%);
+                transform: rotateY(0deg) rotateX(-90deg) translateZ(calc(#{$size} / 2));
             }
             &:nth-child(4) {
-                --background: #{$shadow};
-                --top: 0;
-                --left: 0;
-                --translateZ: calc(var(--size) * 3 * -1);
+                background: #DBE3F4;
+                transform: rotateY(0deg) rotateX(0deg) translateZ(calc(#{$size} * 3 * -1));
             }
         }
     }
@@ -422,7 +403,7 @@ body {
     flex: 1 0 0;
     padding: 5px;
 
-    & > .title {
+    > .title {
         font-weight: 300;
         font-size: .9rem;
         margin-bottom: 10px;

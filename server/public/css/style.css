@@ -38,7 +38,11 @@ body {
 .file-uploader {
   min-height: 500px;
   width: 800px;
-  margin: 5vh auto;
+  position: absolute;
+  top: 5vw;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
   background: #F5F8FB;
   -webkit-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.25);
           box-shadow: 0 2px 15px rgba(0, 0, 0, 0.25);
@@ -336,25 +340,21 @@ body {
 }
 
 .sanitizing .boxes {
-  --size: 32px;
-  --duration: 800ms;
-  height: calc(var(--size) * 2);
-  width: calc(var(--size) * 3);
+  height: calc(32px * 2);
+  width: calc(32px* 3);
   position: relative;
   -webkit-transform-style: preserve-3d;
           transform-style: preserve-3d;
   -webkit-transform-origin: 50% 50%;
           transform-origin: 50% 50%;
-  margin-top: calc(var(--size) * 1.5 * -1);
+  margin-top: calc(32px * 1.5 * -1);
   -webkit-transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
           transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
 }
 
 .sanitizing .box {
-  width: var(--size);
-  height: var(--size);
-  top: 0;
-  left: 0;
+  width: 32px;
+  height: 32px;
   position: absolute;
   -webkit-transform-style: preserve-3d;
           transform-style: preserve-3d;
@@ -363,73 +363,59 @@ body {
 .sanitizing .box:nth-child(1) {
   -webkit-transform: translate(100%, 0);
           transform: translate(100%, 0);
-  -webkit-animation: box1-sanitize var(--duration) linear infinite;
-          animation: box1-sanitize var(--duration) linear infinite;
+  -webkit-animation: box1-sanitize 800ms linear infinite;
+          animation: box1-sanitize 800ms linear infinite;
 }
 
 .sanitizing .box:nth-child(2) {
   -webkit-transform: translate(0, 100%);
           transform: translate(0, 100%);
-  -webkit-animation: box2-sanitize var(--duration) linear infinite;
-          animation: box2-sanitize var(--duration) linear infinite;
+  -webkit-animation: box2-sanitize 800ms linear infinite;
+          animation: box2-sanitize 800ms linear infinite;
 }
 
 .sanitizing .box:nth-child(3) {
   -webkit-transform: translate(100%, 100%);
           transform: translate(100%, 100%);
-  -webkit-animation: box3-sanitize var(--duration) linear infinite;
-          animation: box3-sanitize var(--duration) linear infinite;
+  -webkit-animation: box3-sanitize 800ms linear infinite;
+          animation: box3-sanitize 800ms linear infinite;
 }
 
 .sanitizing .box:nth-child(4) {
   -webkit-transform: translate(200%, 0);
           transform: translate(200%, 0);
-  -webkit-animation: box4-sanitize var(--duration) linear infinite;
-          animation: box4-sanitize var(--duration) linear infinite;
+  -webkit-animation: box4-sanitize 800ms linear infinite;
+          animation: box4-sanitize 800ms linear infinite;
 }
 
 .sanitizing .box > div {
-  --background: #FF2995;
-  --top: auto;
-  --right: auto;
-  --bottom: auto;
-  --left: auto;
-  --translateZ: calc(var(--size) / 2);
-  --rotateY: 0deg;
-  --rotateX: 0deg;
   position: absolute;
   width: 100%;
   height: 100%;
-  background: var(--background);
-  top: var(--top);
-  right: var(--right);
-  bottom: var(--bottom);
-  left: var(--left);
-  -webkit-transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));
-          transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));
+  background: #FF2995;
 }
 
 .sanitizing .box > div:nth-child(1) {
-  --top: 0;
-  --left: 0;
+  -webkit-transform: rotateY(0deg) rotateX(0deg) translateZ(calc(32px / 2));
+          transform: rotateY(0deg) rotateX(0deg) translateZ(calc(32px / 2));
 }
 
 .sanitizing .box > div:nth-child(2) {
-  --background: #dc006f;
-  --right: 0;
-  --rotateY: 90deg;
+  background: #dc006f;
+  -webkit-transform: rotateY(90deg) rotateX(0deg) translateZ(calc(32px / 2));
+          transform: rotateY(90deg) rotateX(0deg) translateZ(calc(32px / 2));
 }
 
 .sanitizing .box > div:nth-child(3) {
-  --background: #f5007c;
-  --rotateX: -90deg;
+  background: #f5007c;
+  -webkit-transform: rotateY(0deg) rotateX(-90deg) translateZ(calc(32px / 2));
+          transform: rotateY(0deg) rotateX(-90deg) translateZ(calc(32px / 2));
 }
 
 .sanitizing .box > div:nth-child(4) {
-  --background: #DBE3F4;
-  --top: 0;
-  --left: 0;
-  --translateZ: calc(var(--size) * 3 * -1);
+  background: #DBE3F4;
+  -webkit-transform: rotateY(0deg) rotateX(0deg) translateZ(calc(32px * 3 * -1));
+          transform: rotateY(0deg) rotateX(0deg) translateZ(calc(32px * 3 * -1));
 }
 
 @-webkit-keyframes box1-sanitize {
@@ -594,7 +580,7 @@ body {
   padding: 5px;
 }
 
-.saved-files .title {
+.saved-files > .title {
   font-weight: 300;
   font-size: .9rem;
   margin-bottom: 10px;
