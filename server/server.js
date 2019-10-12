@@ -19,7 +19,7 @@ app.use(express.json());
 // ----------------------
 // LOAD API & STATIC ROUTES
 // ----------------------
-// app.use(express.static('./public'));
+app.use(express.static('./public'));
 app.use('/api/pricelists', pricelists);
 
 // ----------------------

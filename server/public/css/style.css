@@ -60,6 +60,8 @@ body {
   .file-uploader {
     min-height: 100vh;
     width: 100vw;
+    top: 0;
+    left: 0;
     margin: 0;
     -webkit-transform: translateX(0);
             transform: translateX(0);

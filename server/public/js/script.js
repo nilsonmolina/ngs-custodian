@@ -11,7 +11,7 @@ const ui = {
     downloader: document.querySelector('.downloader'),
   },
   changeMode(mode) {
-    Object.keys(this.modes).forEach((key) => {
+    Object.keys(ui.modes).forEach((key) => {
       const curr = ui.modes[key];
 
       if (curr === mode) curr.classList.add('visible');
